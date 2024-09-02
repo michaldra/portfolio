@@ -39,7 +39,7 @@
           </p>
           <img
             class="info-block__img"
-            src="../static/img/profile.png"
+            src="../static/img/naklejka-gucia.png"
             alt="me"
             width="250"
             height="250"
@@ -104,7 +104,7 @@
         {% endif %}
         {% if button_discord%}
           <div class="skills__project project" id="project">
-              <img class="project__img" src="../static/img/developer.png" alt="project" width="500">
+              <img class="project__img" src="../static/img/bot-discord.png" alt="project" width="500">
               <a class="project__link" href="https://github.com/michaldra/BotDiscord">Otwórz w GitHub</a>
           </div>
         {% endif %}
@@ -121,20 +121,20 @@
           </div>
         {% endif %}
       </section>
-      {% block content %}
       <section class="main__feedback feedback" id="feedback">
         <h2 class="feedback__title">OPINIA</h2>
-        <form action="{{url_for('index')}}" method="POST" class="feedback__form form">
+        {% block content %}
+        <form action="{{ url_for('feed') }}" method="post" class="feedback__form form">
           <label for="email">
             <input type="email" class="form__input" name="email" id="email" placeholder="Wprowadź e-mail" required>
           </label>
           <label for="text">
             <textarea name="text" class="form__input" id="text" cols="70" rows="10" placeholder="Komentarz" required></textarea>
           </label>
-          <button class="form__button" type="submit">WYŚLIJ</button>
+            <button class="form__button" type="submit">WYŚLIJ</button>
         </form>
+        {% endblock %}
       </section>
-      {% endblock %}
     </main>
     <footer>
 

@@ -7,11 +7,11 @@ db = SQLAlchemy(app)
 
 class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    email = db.Column(db.String, nullable=False)
+    email = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text, nullable=False)
 
     def __repr__(self):
-        return f'<Card {self.id}>'
+        return f'<Feedback {self.id}>'
 
 @app.route('/')
 def index():
@@ -25,17 +25,13 @@ def process_form():
     button_db = request.form.get('button_db')
     return render_template('index.html', button_python=button_python, button_discord=button_discord, button_html=button_html, button_db=button_db)
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['POST'])
 def feed():
-    if request.method == 'POST':
-        email = request.form['email']
-        text = request.form['text']
-        message = Feedback(email=email, text=text)
-        db.session.add(message)
-        db.session.commit()
-        return redirect('/')
-    else:
-        return render_template('index.html')
+    email = request.form['email']
+    text = request.form['text']
+    with open('feedback.txt', 'a', encoding='utf-8') as f:
+        f.write("Email: ", email + '\n' + "Wiadomość: ",text + '\n')
+    return redirect('/')
 
 if __name__ == "__main__":
     app.run(debug=True)
